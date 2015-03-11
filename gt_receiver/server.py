@@ -3,12 +3,14 @@ from __future__ import absolute_import
 from sqlalchemy import Column, Integer, String, Date
 from flask import Flask, Response, abort, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.cors import CORS
+from flask.ext.cors import CORS, cross_origin
+import json
 
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 cors = CORS(app)
+app.config['CORS_HEADERS'] = 'content-type'
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = ('postgresql+psycopg2://%s:%s@%s/%s' %
@@ -35,15 +37,19 @@ class Groundtruth(db.Model):
     date = Column(Date)
     activity = Column(String)
     user = Column(Integer)
+    location = Column(String)
 
 
 @app.route('/groundtruths', methods=['POST'])
+@cross_origin(supports_credentials=True, origins="http://localhost:4200")
 def create_groundtruth():
     try:
-        groundtruth = Groundtruth(id=request.form['id'],
-                                  activity=request.form['activity'],
-                                  user=request.form['user'],
-                                  date=request.form['date'])
+        gt = json.loads(request.data)['groundtruth']
+        print('test')
+        groundtruth = Groundtruth(location=gt['location'],
+                                  activity=gt['activity'],
+                                  user=gt['user'],
+                                  date=gt['date'])
         db.session.add(groundtruth)
         db.session.commit()
         return Response(None, status=201)
