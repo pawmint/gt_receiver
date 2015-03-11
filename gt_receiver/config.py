@@ -1,4 +1,4 @@
 USER = 'sails'
 PASSWORD = 'sails'
-HOST = 'endelin.fr'
+HOST = 'localhost'
 DBNAME = 'ubidb'

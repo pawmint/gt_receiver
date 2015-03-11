@@ -23,8 +23,10 @@ setup(
         'Jinja2==2.7.3',
         'MarkupSafe==0.23',
         'SQLAlchemy==0.9.9',
+        'Flask-SQLAlchemy==2.0',
         'Werkzeug==0.10.1',
-        'psycopg2==2.6'
+        'psycopg2==2.6',
+        'Flask-Cors==1.10.3'
     ],
     license='Copyright',
     zip_safe=True,  # To be verified
