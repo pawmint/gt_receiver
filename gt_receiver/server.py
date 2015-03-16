@@ -5,10 +5,13 @@ from flask import Flask, Response, abort, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS, cross_origin
 import json
+import pkg_resources
 
 
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
+app.config.from_pyfile(pkg_resources.resource_filename(
+    'gt_receiver', 'config.py')
+)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'content-type'
 

@@ -28,11 +28,11 @@ setup(
         'psycopg2==2.6',
         'Flask-Cors==1.10.3'
     ],
+    entry_points = {
+        'console_scripts': ['receive_groundtruth=gt_receiver.server:main'],
+    },
     license='Copyright',
     zip_safe=True,  # To be verified
-    entry_points = {
-        'console_scripts': ['gt_receiver=gt_receiver.server:main'],
-    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
